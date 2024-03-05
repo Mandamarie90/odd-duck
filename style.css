@@ -1,0 +1,63 @@
+/* style.css */
+
+/* Pink color palette */
+:root {
+  --primary-color: #ff69b4; /* Hot pink */
+  --secondary-color: #ffb6c1; /* Light pink */
+  --background-color: #f8f0fc; /* Lavender blush */
+}
+
+/* Reset CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+  font-size:xx-large;
+  background-color: rgb(255, 219, 232);
+  padding: 20px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+#products {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+#products img {
+  width: 100%;
+  height: auto;
+}
+
+#viewResults {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.results {
+  margin-top: 20px;
+}
+
+.results p {
+  margin-bottom: 10px;
+}
