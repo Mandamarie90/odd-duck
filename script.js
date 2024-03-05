@@ -65,8 +65,8 @@ function displayProducts() {
 document.getElementById('products').addEventListener('click', function(event) {
   const clickedImg = event.target;
   if (clickedImg.tagName === 'IMG') {
-      const index = Array.from(clickedImg.parentNode.children).indexOf(clickedImg);
-      handleClick(index); // Pass the index to handleClick function
+    const index = Array.from(clickedImg.parentNode.children).indexOf(clickedImg);
+    handleClick(index); // Pass the index to handleClick function
   }
 });
 
@@ -76,9 +76,9 @@ function handleClick(index) {
   products[index].timesClicked++;
   currentRound++;
   if (currentRound < rounds) {
-      displayProducts();
+    displayProducts();
   } else {
-      displayResults();
+    displayResults();
   }
 }
 
