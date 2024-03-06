@@ -1,4 +1,4 @@
-// script.js
+
 class Product {
   constructor(name, imagePath) {
     this.name = name;
@@ -7,9 +7,12 @@ class Product {
     this.timesClicked = 0;
   }
 }
+ 
 let products = [];
 let rounds = 25;
 let currentRound = 0;
+let previousProductIndices = [];
+
 
 // Initial setup
 // Add products to the products array
@@ -33,15 +36,19 @@ products.push(new Product('Water Can', 'Img/water-can.jpg'));
 products.push(new Product('Wine Glass', 'Img/wine-glass.jpg'));
 products.push(new Product('Sweep', 'Img/sweep.png'));
 
+
+preloadImages();
+
 // Function to generate random product indices
 function generateRandomProducts() {
   let productIndex = [];
   while (productIndex.length < 3) {
     let randomIndex = Math.floor(Math.random() * products.length);
-    if (!productIndex.includes(randomIndex)) {
+    if (!productIndex.includes(randomIndex) && !previousProductIndices.includes(randomIndex)) {
       productIndex.push(randomIndex);
     }
   }
+  previousProductIndices = productIndex;
   return productIndex;
 }
 
@@ -60,48 +67,96 @@ function displayProducts() {
   });
 }
 
-
 // Inside your event listener
 document.getElementById('products').addEventListener('click', function(event) {
   const clickedImg = event.target;
   if (clickedImg.tagName === 'IMG') {
-    const index = Array.from(clickedImg.parentNode.children).indexOf(clickedImg);
-    handleClick(index); // Pass the index to handleClick function
+    const productName = clickedImg.alt; // Get the alt attribute which contains the product name
+    handleClick(productName);// Pass the index to handleClick function
   }
 });
 
-// Define your handleClick function to accept the index parameter
-function handleClick(index) {
-  // Your existing code that uses the index parameter
-  products[index].timesClicked++;
-  currentRound++;
-  if (currentRound < rounds) {
-    displayProducts();
-  } else {
-    displayResults();
+function handleClick(productName) {
+  // Your existing code that uses the productName parameter
+  // Find the product object based on its name
+  const product = products.find(product => product.name === productName);
+  if (product) {
+    product.timesClicked++;
+    currentRound++;
+    if (currentRound < rounds) {
+      displayProducts();
+    } else {
+      displayResults();
   }
 }
-
-
+}
+// Pre-load images
+function preloadImages() {
+  products.forEach(product => {
+    const img = new Image();
+    img.src = product.imagePath;
+  });
+}
 
 // Function to display results
 function displayResults() {
   const resultSection = document.createElement('div');
   resultSection.classList.add('results');
+  
+  // Clear previous chart if any
+  document.getElementById('myChart').innerHTML = '';
+
+  // Sort products based on votes in descending order
+  products.sort((a, b) => b.timesClicked - a.timesClicked);
+
+  const labels = [];
+  const viewsData = [];
+  const votesData = [];
+  const backgroundColors = [];
+  const borderColors = [];
+
   products.forEach(product => {
-    const result = document.createElement('p');
-    result.textContent = `${product.name} had ${product.timesClicked} votes, and was seen ${product.timesShown} times.`;
-    resultSection.appendChild(result);
+    labels.push(product.name);
+    viewsData.push(product.timesShown);
+    votesData.push(product.timesClicked);
+    backgroundColors.push('rgba(255, 99, 132, 0.2)');
+    borderColors.push('rgba(255, 99, 132, 1)');
   });
-  document.body.appendChild(resultSection);
+
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const options = {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'Views',
+        data: viewsData,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }, {
+        label: 'Votes',
+        data: votesData,
+        backgroundColor: backgroundColors,
+        borderColor: borderColors,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  };
+
+  const myChart = new Chart(ctx, options);
 }
 
-// Start displaying products
+
 displayProducts();
 
-// Event listener for viewing results
+
 document.getElementById('viewResults').addEventListener('click', displayResults);
-
-
-
 
