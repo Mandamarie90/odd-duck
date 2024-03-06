@@ -143,7 +143,7 @@ function displayResults() {
         y: {
           beginAtZero: true
         }
-      }
+      } 
     }
   };
 
