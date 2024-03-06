@@ -7,7 +7,7 @@ class Product {
     this.timesClicked = 0;
   }
 }
-
+ 
 let products = [];
 let rounds = 25;
 let currentRound = 0;
