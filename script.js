@@ -175,5 +175,3 @@ document.getElementById('viewResults').addEventListener('click', displayResults)
 
 // Store products array into local storage as a formatted JSON string
 localStorage.setItem('products', JSON.stringify(products));
-
-
