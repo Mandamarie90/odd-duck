@@ -27,26 +27,27 @@ function retrieveProductsFromLocalStorage() {
 
 // Function to create new products if local storage is empty
 function createProducts() {
-  products.push(new Product('Bag', 'Img/bag.jpg'));
-  products.push(new Product('Banana', './Img/banana.jpg'));
-  products.push(new Product('Bathroom', './Img/bathroom.jpg'));
-  products.push(new Product('Boots', './Img/boots.jpg'));
-  products.push(new Product('Breakfast', './Img/breakfast.jpg'));
-  products.push(new Product('Bubblegum', './Img/bubblegum.jpg'));
-  products.push(new Product('Chair', './Img/chair.jpg'));
-  products.push(new Product('Cthulhu', './Img/cthulhu.jpg'));
-  products.push(new Product('Dog Duck', './Img/dog-duck.jpg'));
-  products.push(new Product('Dragon', './Img/dragon.jpg'));
-  products.push(new Product('Pen', './Img/pen.jpg'));
-  products.push(new Product('Pet Sweep', './Img/pet-sweep.jpg'));
-  products.push(new Product('Scissors', './Img/scissors.jpg'));
-  products.push(new Product('Shark', './Img/shark.jpg'));
-  products.push(new Product('Tauntaun', './Img/tauntaun.jpg'));
-  products.push(new Product('Unicorn', './Img/unicorn.jpg'));
-  products.push(new Product('Water Can', './Img/water-can.jpg'));
-  products.push(new Product('Wine Glass', './Img/wine-glass.jpg'));
-  products.push(new Product('Sweep', './Img/sweep.png'));
-}
+
+  products.push(new Product('Bag', './Img/bag.jpg'));
+  products.push(new Product('Banana', 'Img/banana.jpg'));
+  products.push(new Product('Bathroom', 'Img/bathroom.jpg'));
+  products.push(new Product('Boots', 'Img/boots.jpg'));
+  products.push(new Product('Breakfast', 'img/breakfast.jpg'));
+  products.push(new Product('Bubblegum', 'Img/bubblegum.jpg'));
+  products.push(new Product('Chair', 'Img/chair.jpg'));
+  products.push(new Product('Cthulhu', 'Img/cthulhu.jpg'));
+  products.push(new Product('Dog Duck', 'Img/dog-duck.jpg'));
+  products.push(new Product('Dragon', 'Img/dragon.jpg'));
+  products.push(new Product('Pen', 'Img/pen.jpg'));
+  products.push(new Product('Pet Sweep', 'Img/pet-sweep.jpg'));
+  products.push(new Product('Scissors', 'Img/scissors.jpg'));
+  products.push(new Product('Shark', 'Img/shark.jpg'));
+  products.push(new Product('Tauntaun', 'Img/tauntaun.jpg'));
+  products.push(new Product('Unicorn', 'Img/unicorn.jpg'));
+  products.push(new Product('Water Can', 'Img/water-can.jpg'));
+  products.push(new Product('Wine Glass', 'Img/wine-glass.jpg'));
+  products.push(new Product('Sweep', 'Img/sweep.png'));
+
 
 retrieveProductsFromLocalStorage();
 
@@ -115,11 +116,10 @@ function preloadImages() {
 function displayResults() {
   const resultSection = document.createElement('div');
   resultSection.classList.add('results');
-  
-  
+
   document.getElementById('myChart').innerHTML = '';
 
-  
+
   products.sort((a, b) => b.timesClicked - a.timesClicked);
 
   const labels = [];
