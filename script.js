@@ -27,7 +27,6 @@ function retrieveProductsFromLocalStorage() {
 
 // Function to create new products if local storage is empty
 function createProducts() {
-
   products.push(new Product('Bag', './Img/bag.jpg'));
   products.push(new Product('Banana', 'Img/banana.jpg'));
   products.push(new Product('Bathroom', 'Img/bathroom.jpg'));
@@ -47,6 +46,7 @@ function createProducts() {
   products.push(new Product('Water Can', 'Img/water-can.jpg'));
   products.push(new Product('Wine Glass', 'Img/wine-glass.jpg'));
   products.push(new Product('Sweep', 'Img/sweep.png'));
+}
 
 
 retrieveProductsFromLocalStorage();
@@ -160,7 +160,7 @@ function displayResults() {
         y: {
           beginAtZero: true
         }
-      } 
+      }
     }
   };
 
@@ -175,3 +175,5 @@ document.getElementById('viewResults').addEventListener('click', displayResults)
 
 // Store products array into local storage as a formatted JSON string
 localStorage.setItem('products', JSON.stringify(products));
+
+
