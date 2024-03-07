@@ -27,7 +27,7 @@ function retrieveProductsFromLocalStorage() {
 
 // Function to create new products if local storage is empty
 function createProducts() {
-  products.push(new Product('Bag', './Img/bag.jpg'));
+  products.push(new Product('Bag', 'Img/bag.jpg'));
   products.push(new Product('Banana', './Img/banana.jpg'));
   products.push(new Product('Bathroom', './Img/bathroom.jpg'));
   products.push(new Product('Boots', './Img/boots.jpg'));
