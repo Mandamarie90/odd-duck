@@ -13,6 +13,7 @@ let rounds = 25;
 let currentRound = 0;
 let previousProductIndices = [];
 
+
 // Function to retrieve products from local storage if available
 function retrieveProductsFromLocalStorage() {
   const productsJSON = localStorage.getItem('products');
