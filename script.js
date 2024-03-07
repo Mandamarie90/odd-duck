@@ -177,3 +177,5 @@ document.getElementById('viewResults').addEventListener('click', displayResults)
 localStorage.setItem('products', JSON.stringify(products));
 
 
+
+
