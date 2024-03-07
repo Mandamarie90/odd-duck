@@ -12,7 +12,7 @@ const products = [
   new Product('Banana', 'Img/banana.jpg'),
   new Product('Bathroom', 'Img/bathroom.jpg'),
   new Product('Boots', 'Img/boots.jpg'),
-  new Product('Breakfast', 'img/breakfast.jpg'),
+  new Product('Breakfast', 'Img/breakfast.jpg'),
   new Product('Bubblegum', 'Img/bubblegum.jpg'),
   new Product('Chair', 'Img/chair.jpg'),
   new Product('Cthulhu', 'Img/cthulhu.jpg'),
