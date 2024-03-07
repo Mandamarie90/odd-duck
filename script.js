@@ -7,39 +7,52 @@ class Product {
     this.timesClicked = 0;
   }
 }
- 
+
 let products = [];
 let rounds = 25;
 let currentRound = 0;
 let previousProductIndices = [];
 
 
-// Initial setup
-// Add products to the products array
-products.push(new Product('Bag', './Img/bag.jpg'));
-products.push(new Product('Banana', 'Img/banana.jpg'));
-products.push(new Product('Bathroom', 'Img/bathroom.jpg'));
-products.push(new Product('Boots', 'Img/boots.jpg'));
-products.push(new Product('Breakfast', 'Img/breakfast.jpg'));
-products.push(new Product('Bubblegum', 'Img/bubblegum.jpg'));
-products.push(new Product('Chair', 'Img/chair.jpg'));
-products.push(new Product('Cthulhu', 'Img/cthulhu.jpg'));
-products.push(new Product('Dog Duck', 'Img/dog-duck.jpg'));
-products.push(new Product('Dragon', 'Img/dragon.jpg'));
-products.push(new Product('Pen', 'Img/pen.jpg'));
-products.push(new Product('Pet Sweep', 'Img/pet-sweep.jpg'));
-products.push(new Product('Scissors', 'Img/scissors.jpg'));
-products.push(new Product('Shark', 'Img/shark.jpg'));
-products.push(new Product('Tauntaun', 'Img/tauntaun.jpg'));
-products.push(new Product('Unicorn', 'Img/unicorn.jpg'));
-products.push(new Product('Water Can', 'Img/water-can.jpg'));
-products.push(new Product('Wine Glass', 'Img/wine-glass.jpg'));
-products.push(new Product('Sweep', 'Img/sweep.png'));
+// Function to retrieve products from local storage if available
+function retrieveProductsFromLocalStorage() {
+  const productsJSON = localStorage.getItem('products');
+  if (productsJSON) {
+    products = JSON.parse(productsJSON);
+  } else {
+    // If no products found in local storage, create new products
+    createProducts();
+  }
+}
 
+// Function to create new products if local storage is empty
+function createProducts() {
+  products.push(new Product('Bag', './img/bag.jpg'));
+  products.push(new Product('Banana', 'img/banana.jpg'));
+  products.push(new Product('Bathroom', 'img/bathroom.jpg'));
+  products.push(new Product('Boots', 'img/boots.jpg'));
+  products.push(new Product('Breakfast', 'img/breakfast.jpg'));
+  products.push(new Product('Bubblegum', 'img/bubblegum.jpg'));
+  products.push(new Product('Chair', 'img/chair.jpg'));
+  products.push(new Product('Cthulhu', 'img/cthulhu.jpg'));
+  products.push(new Product('Dog Duck', 'img/dog-duck.jpg'));
+  products.push(new Product('Dragon', 'img/dragon.jpg'));
+  products.push(new Product('Pen', 'img/pen.jpg'));
+  products.push(new Product('Pet Sweep', 'img/pet-sweep.jpg'));
+  products.push(new Product('Scissors', 'img/scissors.jpg'));
+  products.push(new Product('Shark', 'img/shark.jpg'));
+  products.push(new Product('Tauntaun', 'img/tauntaun.jpg'));
+  products.push(new Product('Unicorn', 'img/unicorn.jpg'));
+  products.push(new Product('Water Can', 'img/water-can.jpg'));
+  products.push(new Product('Wine Glass', 'img/wine-glass.jpg'));
+  products.push(new Product('Sweep', 'img/sweep.png'));
+}
+
+retrieveProductsFromLocalStorage();
 
 preloadImages();
 
-// Function to generate random product indices
+
 function generateRandomProducts() {
   let productIndex = [];
   while (productIndex.length < 3) {
@@ -52,10 +65,10 @@ function generateRandomProducts() {
   return productIndex;
 }
 
-// Function to display products
+
 function displayProducts() {
   let productSection = document.getElementById('products');
-  productSection.innerHTML = ''; // Clear previous products
+  productSection.innerHTML = '';
   let randomProductIndices = generateRandomProducts();
   randomProductIndices.forEach(index => {
     const product = products[index];
@@ -67,18 +80,16 @@ function displayProducts() {
   });
 }
 
-// Inside your event listener
+
 document.getElementById('products').addEventListener('click', function(event) {
   const clickedImg = event.target;
   if (clickedImg.tagName === 'IMG') {
-    const productName = clickedImg.alt; // Get the alt attribute which contains the product name
-    handleClick(productName);// Pass the index to handleClick function
+    const productName = clickedImg.alt;
+    handleClick(productName);
   }
 });
 
 function handleClick(productName) {
-  // Your existing code that uses the productName parameter
-  // Find the product object based on its name
   const product = products.find(product => product.name === productName);
   if (product) {
     product.timesClicked++;
@@ -87,10 +98,12 @@ function handleClick(productName) {
       displayProducts();
     } else {
       displayResults();
+    }
+    localStorage.setItem('products', JSON.stringify(products));
   }
 }
-}
-// Pre-load images
+
+
 function preloadImages() {
   products.forEach(product => {
     const img = new Image();
@@ -98,15 +111,15 @@ function preloadImages() {
   });
 }
 
-// Function to display results
+
 function displayResults() {
   const resultSection = document.createElement('div');
   resultSection.classList.add('results');
   
-  // Clear previous chart if any
+  
   document.getElementById('myChart').innerHTML = '';
 
-  // Sort products based on votes in descending order
+  
   products.sort((a, b) => b.timesClicked - a.timesClicked);
 
   const labels = [];
@@ -147,7 +160,7 @@ function displayResults() {
         y: {
           beginAtZero: true
         }
-      }
+      } 
     }
   };
 
@@ -159,4 +172,8 @@ displayProducts();
 
 
 document.getElementById('viewResults').addEventListener('click', displayResults);
+
+// Store products array into local storage as a formatted JSON string
+localStorage.setItem('products', JSON.stringify(products));
+
 
