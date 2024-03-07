@@ -1,4 +1,3 @@
-
 class Product {
   constructor(name, imagePath) {
     this.name = name;
@@ -8,56 +7,43 @@ class Product {
   }
 }
 
-let products = [];
-let rounds = 25;
+const products = [
+  new Product('Bag', './Img/bag.jpg'),
+  new Product('Banana', 'Img/banana.jpg'),
+  new Product('Bathroom', 'Img/bathroom.jpg'),
+  new Product('Boots', 'Img/boots.jpg'),
+  new Product('Breakfast', 'img/breakfast.jpg'),
+  new Product('Bubblegum', 'Img/bubblegum.jpg'),
+  new Product('Chair', 'Img/chair.jpg'),
+  new Product('Cthulhu', 'Img/cthulhu.jpg'),
+  new Product('Dog Duck', 'Img/dog-duck.jpg'),
+  new Product('Dragon', 'Img/dragon.jpg'),
+  new Product('Pen', 'Img/pen.jpg'),
+  new Product('Pet Sweep', 'Img/pet-sweep.jpg'),
+  new Product('Scissors', 'Img/scissors.jpg'),
+  new Product('Shark', 'Img/shark.jpg'),
+  new Product('Tauntaun', 'Img/tauntaun.jpg'),
+  new Product('Unicorn', 'Img/unicorn.jpg'),
+  new Product('Water Can', 'Img/water-can.jpg'),
+  new Product('Wine Glass', 'Img/wine-glass.jpg'),
+  new Product('Sweep', 'Img/sweep.png')
+];
+
+const rounds = 25;
 let currentRound = 0;
 let previousProductIndices = [];
 
-
-// Function to retrieve products from local storage if available
 function retrieveProductsFromLocalStorage() {
   const productsJSON = localStorage.getItem('products');
-  if (productsJSON) {
-    products = JSON.parse(productsJSON);
-  } else {
-    // If no products found in local storage, create new products
-    createProducts();
+  if (!productsJSON) {
+    localStorage.setItem('products', JSON.stringify(products));
   }
 }
 
-// Function to create new products if local storage is empty
-function createProducts() {
-  products.push(new Product('Bag', './Img/bag.jpg'));
-  products.push(new Product('Banana', 'Img/banana.jpg'));
-  products.push(new Product('Bathroom', 'Img/bathroom.jpg'));
-  products.push(new Product('Boots', 'Img/boots.jpg'));
-  products.push(new Product('Breakfast', 'img/breakfast.jpg'));
-  products.push(new Product('Bubblegum', 'Img/bubblegum.jpg'));
-  products.push(new Product('Chair', 'Img/chair.jpg'));
-  products.push(new Product('Cthulhu', 'Img/cthulhu.jpg'));
-  products.push(new Product('Dog Duck', 'Img/dog-duck.jpg'));
-  products.push(new Product('Dragon', 'Img/dragon.jpg'));
-  products.push(new Product('Pen', 'Img/pen.jpg'));
-  products.push(new Product('Pet Sweep', 'Img/pet-sweep.jpg'));
-  products.push(new Product('Scissors', 'Img/scissors.jpg'));
-  products.push(new Product('Shark', 'Img/shark.jpg'));
-  products.push(new Product('Tauntaun', 'Img/tauntaun.jpg'));
-  products.push(new Product('Unicorn', 'Img/unicorn.jpg'));
-  products.push(new Product('Water Can', 'Img/water-can.jpg'));
-  products.push(new Product('Wine Glass', 'Img/wine-glass.jpg'));
-  products.push(new Product('Sweep', 'Img/sweep.png'));
-}
-
-
-retrieveProductsFromLocalStorage();
-
-preloadImages();
-
-
 function generateRandomProducts() {
-  let productIndex = [];
+  const productIndex = [];
   while (productIndex.length < 3) {
-    let randomIndex = Math.floor(Math.random() * products.length);
+    const randomIndex = Math.floor(Math.random() * products.length);
     if (!productIndex.includes(randomIndex) && !previousProductIndices.includes(randomIndex)) {
       productIndex.push(randomIndex);
     }
@@ -66,11 +52,10 @@ function generateRandomProducts() {
   return productIndex;
 }
 
-
 function displayProducts() {
-  let productSection = document.getElementById('products');
+  const productSection = document.getElementById('products');
   productSection.innerHTML = '';
-  let randomProductIndices = generateRandomProducts();
+  const randomProductIndices = generateRandomProducts();
   randomProductIndices.forEach(index => {
     const product = products[index];
     product.timesShown++;
@@ -80,7 +65,6 @@ function displayProducts() {
     productSection.appendChild(image);
   });
 }
-
 
 document.getElementById('products').addEventListener('click', function(event) {
   const clickedImg = event.target;
@@ -104,7 +88,6 @@ function handleClick(productName) {
   }
 }
 
-
 function preloadImages() {
   products.forEach(product => {
     const img = new Image();
@@ -112,13 +95,11 @@ function preloadImages() {
   });
 }
 
-
 function displayResults() {
   const resultSection = document.createElement('div');
   resultSection.classList.add('results');
 
   document.getElementById('myChart').innerHTML = '';
-
 
   products.sort((a, b) => b.timesClicked - a.timesClicked);
 
@@ -164,17 +145,16 @@ function displayResults() {
     }
   };
 
-  const myChart = new Chart(ctx, options);
+  new Chart(ctx, options);
+
+  displayProducts();
 }
-
-
-displayProducts();
-
 
 document.getElementById('viewResults').addEventListener('click', displayResults);
 
-// Store products array into local storage as a formatted JSON string
-localStorage.setItem('products', JSON.stringify(products));
+retrieveProductsFromLocalStorage();
+preloadImages();
+displayProducts();
 
 
 
