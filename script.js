@@ -7,7 +7,7 @@ class Product {
   }
 }
 
-const products = [
+let products = [
   new Product('Bag', './Img/bag.jpg'),
   new Product('Banana', 'Img/banana.jpg'),
   new Product('Bathroom', 'Img/bathroom.jpg'),
@@ -35,10 +35,15 @@ let previousProductIndices = [];
 
 function retrieveProductsFromLocalStorage() {
   const productsJSON = localStorage.getItem('products');
-  if (!productsJSON) {
+  if (productsJSON) {
+    // Parse JSON string to JavaScript object
+    products = JSON.parse(productsJSON);
+  } else {
+    // If products data is not found in local storage, set default products
     localStorage.setItem('products', JSON.stringify(products));
   }
 }
+
 
 function generateRandomProducts() {
   const productIndex = [];
